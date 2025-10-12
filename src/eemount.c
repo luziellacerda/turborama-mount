@@ -556,7 +556,7 @@ int eemount_routine() {
         drive_helper_free(&dhelper);
         return 1;
     }
-    eemount_mount_ports_scripts();
+    //eemount_mount_ports_scripts();
     struct eemount_finished_helper *mhelper = eemount_mount_systems(shelper, dhelper);
     eemount_free_finished_helper(&mhelper);
     systemd_mount_unit_helper_free(&shelper);
