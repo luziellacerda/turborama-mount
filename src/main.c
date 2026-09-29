@@ -1,5 +1,5 @@
 /*
- eemount (Multi-source ROMs mounting utility for EmuELEC) is licensed under [**GPL3**](https://gnu.org/licenses/gpl.html)
+ turborama_mount (Multi-source ROMs mounting utility for Turborama) is licensed under [**GPL3**](https://gnu.org/licenses/gpl.html)
 
  Copyright (C) 2022 Guoxin "7Ji" Pu (pugokushin@gmail.com)
 
@@ -11,9 +11,9 @@
 
 */
 #include "systemd.h"
-#include "eeconfig.h"
+#include "turborama_config.h"
 #include "logging.h"
-#include "eemount.h"
+#include "turborama_mount.h"
 
 #include <string.h>
 
@@ -24,7 +24,7 @@ int main(int argc, char **argv) {
         return 1;
     }
     systemd_stop_unit("smbd.service");
-    if (eemount_routine()) {
+    if (turborama_mount_routine()) {
         logging(LOGGING_ERROR, "Mount routine failed");
     } else {
         logging(LOGGING_INFO, "All mount successful, happy retro-gaming");

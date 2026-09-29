@@ -1,5 +1,5 @@
 /*
- eemount (Multi-source ROMs mounting utility for EmuELEC) is licensed under [**GPL3**](https://gnu.org/licenses/gpl.html)
+ turborama_mount (Multi-source ROMs mounting utility for Turborama) is licensed under [**GPL3**](https://gnu.org/licenses/gpl.html)
 
  Copyright (C) 2022 Guoxin "7Ji" Pu (pugokushin@gmail.com)
 
@@ -23,12 +23,12 @@
 #include "alloc.h"
 #include "logging.h"
 #include "sort.h"
-#include "eeconfig.h"
+#include "turborama_config.h"
 #include "util.h"
 #include "paths.h"
 
-#define DRIVE_EECONFIG_DELAY    "ee_load.delay"
-#define DRIVE_EECONFIG_RETRY    "ee_mount.retry"
-#define DRIVE_EECONFIG_DRIVE    "externalmount"
+#define DRIVE_TURBORAMA_CONFIG_DELAY    "turborama_load.delay"
+#define DRIVE_TURBORAMA_CONFIG_RETRY    "turborama_mount.retry"
+#define DRIVE_TURBORAMA_CONFIG_DRIVE    "externalmount"
 
 static const size_t len_drive_path_mark_anonymous = strlen(PATH_DIR_EXTERNAL"//"PATH_NAME_ROMS"/"PATH_NAME_MARK);

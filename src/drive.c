@@ -1,5 +1,5 @@
 /*
- eemount (Multi-source ROMs mounting utility for EmuELEC) is licensed under [**GPL3**](https://gnu.org/licenses/gpl.html)
+ turborama_mount (Multi-source ROMs mounting utility for Turborama) is licensed under [**GPL3**](https://gnu.org/licenses/gpl.html)
 
  Copyright (C) 2022 Guoxin "7Ji" Pu (pugokushin@gmail.com)
 
@@ -180,8 +180,8 @@ static bool drive_is_name_invalid(const char *name) {
                     }
             }
             break;
-        case 'E':
-            if (!strcmp(name+1, "EROMS")) { // EEROMS
+        case 'T':
+            if (!strcmp(name, PATH_NAME_TURBOROMS)) {
                 return true;
             }
             break;
@@ -198,18 +198,18 @@ struct drive_helper *drive_get_mounts() {
     int delay = 0;
     int retry = 0;
     char *target = NULL;
-    struct eeconfig_get_helper getter[] = {
-        {DRIVE_EECONFIG_DELAY, NULL, NULL, EECONFIG_GET_INT, &delay},
-        {DRIVE_EECONFIG_RETRY, NULL, NULL, EECONFIG_GET_INT, &retry},
-        {DRIVE_EECONFIG_DRIVE, NULL, NULL, EECONFIG_GET_STRING, &target},
+    struct turborama_config_get_helper getter[] = {
+        {DRIVE_TURBORAMA_CONFIG_DELAY, NULL, NULL, TURBORAMA_CONFIG_GET_INT, &delay},
+        {DRIVE_TURBORAMA_CONFIG_RETRY, NULL, NULL, TURBORAMA_CONFIG_GET_INT, &retry},
+        {DRIVE_TURBORAMA_CONFIG_DRIVE, NULL, NULL, TURBORAMA_CONFIG_GET_STRING, &target},
     };
-    eeconfig_get_setting_many(getter, 3);
+    turborama_config_get_setting_many(getter, 3);
     if (delay < 0) {
-        logging(LOGGING_WARNING, "Configuration '"DRIVE_EECONFIG_DELAY"' (time in seconds we should wait before each external drive scan) is set to a negative number %d, it is ignored and you should fix the config", delay);
+        logging(LOGGING_WARNING, "Configuration '"DRIVE_TURBORAMA_CONFIG_DELAY"' (time in seconds we should wait before each external drive scan) is set to a negative number %d, it is ignored and you should fix the config", delay);
         delay = 0;
     }
     if (retry < 0) {
-        logging(LOGGING_WARNING, "Configuration '"DRIVE_EECONFIG_RETRY"' (counts we should retry scanning external drives) is set to a negative number %d, it is ignored and you should fix the config");
+        logging(LOGGING_WARNING, "Configuration '"DRIVE_TURBORAMA_CONFIG_RETRY"' (counts we should retry scanning external drives) is set to a negative number %d, it is ignored and you should fix the config");
         retry = 0;
     } 
     for (int try = 0; try < retry+1; ++try) {
@@ -235,7 +235,7 @@ struct drive_helper *drive_get_mounts() {
                 /*
                 Skip the entry in case of:
                     1. The entry is not directory
-                    2. The entry is either . (/var/media itself) or .. (/var) or EEROMS
+                    2. The entry is either . (/var/media itself) or .. (/var) or TURBOROMS
                     3. The entry's name is different from global.externalmount, if it is set (If it's empty then we ignore this)
                     4. The markfile under it can't be opened (either becase it can't be opened or does not exist)
                 */

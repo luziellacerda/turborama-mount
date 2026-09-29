@@ -1,5 +1,5 @@
 /*
- eemount (Multi-source ROMs mounting utility for EmuELEC) is licensed under [**GPL3**](https://gnu.org/licenses/gpl.html)
+ turborama_mount (Multi-source ROMs mounting utility for Turborama) is licensed under [**GPL3**](https://gnu.org/licenses/gpl.html)
 
  Copyright (C) 2022 Guoxin "7Ji" Pu (pugokushin@gmail.com)
 
@@ -179,8 +179,8 @@ int systemd_restart_unit(const char *unit);
  * @brief Start systemd units for system mounts
  * 
  * @param shelper The helper to systemd units
- * @return struct eemount_finished_helper* A helper struct containing successfully mounted systems
+ * @return struct turborama_mount_finished_helper* A helper struct containing successfully mounted systems
  */
-struct eemount_finished_helper *systemd_start_unit_systems(struct systemd_mount_unit_helper *shelper, enum systemd_start_unit_systems_layer layer, struct eemount_finished_helper *mhelper);
+struct turborama_mount_finished_helper *systemd_start_unit_systems(struct systemd_mount_unit_helper *shelper, enum systemd_start_unit_systems_layer layer, struct turborama_mount_finished_helper *mhelper);
 
 #endif

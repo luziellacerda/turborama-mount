@@ -1,5 +1,5 @@
 /*
- eemount (Multi-source ROMs mounting utility for EmuELEC) is licensed under [**GPL3**](https://gnu.org/licenses/gpl.html)
+ turborama_mount (Multi-source ROMs mounting utility for Turborama) is licensed under [**GPL3**](https://gnu.org/licenses/gpl.html)
 
  Copyright (C) 2022 Guoxin "7Ji" Pu (pugokushin@gmail.com)
 
@@ -10,44 +10,44 @@
  You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 */
-#ifndef HAVE_EECONFIG_H
-#define HAVE_EECONFIG_H
+#ifndef HAVE_TURBORAMA_CONFIG_H
+#define HAVE_TURBORAMA_CONFIG_H
 #include "common.h"
 
 #include <stdbool.h>
 
 /**
- * @brief Helper enum for getting eeconfig
+ * @brief Helper enum for getting turborama_config
  * 
  */
-enum eeconfig_get_type {
+enum turborama_config_get_type {
     /**
      * @brief Get a string, the returned string, if not NULL, should be cleaned by caller
      * 
      */
-    EECONFIG_GET_STRING,
+    TURBORAMA_CONFIG_GET_STRING,
     /**
      * @brief Get a long
      * 
      */
-    EECONFIG_GET_LONG,
+    TURBORAMA_CONFIG_GET_LONG,
     /**
      * @brief Get an integer
      * 
      */
-    EECONFIG_GET_INT,
+    TURBORAMA_CONFIG_GET_INT,
     /**
      * @brief Get a boolean
      * 
      */
-    EECONFIG_GET_BOOL
+    TURBORAMA_CONFIG_GET_BOOL
 };
 
 /**
- * @brief Helper struct to get multiple eeconfig settings
+ * @brief Helper struct to get multiple turborama_config settings
  * 
  */
-struct eeconfig_get_helper {
+struct turborama_config_get_helper {
     /**
      * @brief The setting itself
      * 
@@ -67,7 +67,7 @@ struct eeconfig_get_helper {
      * @brief The type of the setting
      * 
      */
-    const enum eeconfig_get_type type;
+    const enum turborama_config_get_type type;
     /**
      * @brief Pointer to the returned setting
      * 
@@ -85,7 +85,7 @@ struct eeconfig_get_helper {
  * @param result Pointer to the returned setting
  * @return int 0 for success, positive for failure
  */
-int eeconfig_get_setting_one(const char *setting, const char *platform, const char *rom, const enum eeconfig_get_type type, const void *result);
+int turborama_config_get_setting_one(const char *setting, const char *platform, const char *rom, const enum turborama_config_get_type type, const void *result);
 
 /**
  * @brief Get multiple settings
@@ -94,5 +94,5 @@ int eeconfig_get_setting_one(const char *setting, const char *platform, const ch
  * @param get_count The count of settings to get
  * @return int 0 for success, positive for failure in getting settings, negative for failure in initialization
  */
-int eeconfig_get_setting_many(struct eeconfig_get_helper *getter, unsigned int get_count);
+int turborama_config_get_setting_many(struct turborama_config_get_helper *getter, unsigned int get_count);
 #endif

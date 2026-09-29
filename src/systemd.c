@@ -1,5 +1,5 @@
 /*
- eemount (Multi-source ROMs mounting utility for EmuELEC) is licensed under [**GPL3**](https://gnu.org/licenses/gpl.html)
+ turborama_mount (Multi-source ROMs mounting utility for Turborama) is licensed under [**GPL3**](https://gnu.org/licenses/gpl.html)
 
  Copyright (C) 2022 Guoxin "7Ji" Pu (pugokushin@gmail.com)
 
@@ -365,7 +365,7 @@ static bool systemd_mount_unit_system_layer_matcher_2_and_more(struct systemd_mo
     return false;
 }
 
-struct eemount_finished_helper *systemd_start_unit_systems(struct systemd_mount_unit_helper *shelper, enum systemd_start_unit_systems_layer layer, struct eemount_finished_helper *mhelper) {
+struct turborama_mount_finished_helper *systemd_start_unit_systems(struct systemd_mount_unit_helper *shelper, enum systemd_start_unit_systems_layer layer, struct turborama_mount_finished_helper *mhelper) {
     // This should return an array of started systems
     struct systemd_mount_unit *root = shelper->root; // It's the caller's duty to make sure there's only one mount unit providing /storage/roms, systemd_get_mounts() should do that
     unsigned int jobs_count;
@@ -455,7 +455,7 @@ struct eemount_finished_helper *systemd_start_unit_systems(struct systemd_mount_
                         job->finished = true;
                         if (systemd_is_job_success(result)) {
                             if (mhelper == NULL) {
-                                if ((mhelper = malloc(sizeof(struct eemount_finished_helper))) == NULL) {
+                                if ((mhelper = malloc(sizeof(struct turborama_mount_finished_helper))) == NULL) {
                                     logging(LOGGING_ERROR, "Failed to allocate memory for global mount helper");
                                     return NULL;
                                 }

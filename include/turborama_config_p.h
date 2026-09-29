@@ -1,5 +1,5 @@
 /*
- eemount (Multi-source ROMs mounting utility for EmuELEC) is licensed under [**GPL3**](https://gnu.org/licenses/gpl.html)
+ turborama_mount (Multi-source ROMs mounting utility for Turborama) is licensed under [**GPL3**](https://gnu.org/licenses/gpl.html)
 
  Copyright (C) 2022 Guoxin "7Ji" Pu (pugokushin@gmail.com)
 
@@ -10,7 +10,7 @@
  You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 */
-#include "eeconfig.h"
+#include "turborama_config.h"
 
 #include <string.h>
 #include <limits.h>
@@ -19,10 +19,10 @@
 #include "alloc.h"
 #include "util.h"
 
-#define EECONFIG_DIR       "/storage/.config/emuelec/configs"
-#define EECONFIG_FILE      EECONFIG_DIR "/emuelec.conf"
+#define TURBORAMA_CONFIG_DIR       "/storage/.config/turborama/configs"
+#define TURBORAMA_CONFIG_FILE      TURBORAMA_CONFIG_DIR "/turborama.conf"
 
-#define EECONFIG_GLOBAL_PREFIX  "global"
-static const char eeconfig_global_prefix[] = EECONFIG_GLOBAL_PREFIX;
-static const size_t len_eeconfig_global_prefix = strlen(EECONFIG_GLOBAL_PREFIX);
-static const size_t offset_eeconfig_global_setting = len_eeconfig_global_prefix + 1;
+#define TURBORAMA_CONFIG_GLOBAL_PREFIX  "global"
+static const char turborama_config_global_prefix[] = TURBORAMA_CONFIG_GLOBAL_PREFIX;
+static const size_t len_turborama_config_global_prefix = strlen(TURBORAMA_CONFIG_GLOBAL_PREFIX);
+static const size_t offset_turborama_config_global_setting = len_turborama_config_global_prefix + 1;

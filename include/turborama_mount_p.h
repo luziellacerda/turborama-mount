@@ -1,5 +1,5 @@
 /*
- eemount (Multi-source ROMs mounting utility for EmuELEC) is licensed under [**GPL3**](https://gnu.org/licenses/gpl.html)
+ turborama_mount (Multi-source ROMs mounting utility for Turborama) is licensed under [**GPL3**](https://gnu.org/licenses/gpl.html)
 
  Copyright (C) 2022 Guoxin "7Ji" Pu (pugokushin@gmail.com)
 
@@ -10,7 +10,7 @@
  You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 */
-#include "eemount.h"
+#include "turborama_mount.h"
 
 #include <string.h>
 #include <sys/mount.h>
@@ -25,6 +25,6 @@
 #include "drive.h"
 #include "paths.h"
 
-#define EEMOUNT_MOUNTINFO               "/proc/self/mountinfo"
-#define EEMOUNT_PORTS_SCRIPTS_FS        "overlay"
-#define EEMOUNT_PORTS_SCRIPTS_OPTIONS   "lowerdir="PATH_DIR_BIN_PORTS",upperdir="PATH_DIR_EMUELEC_PORTS",workdir="PATH_DIR_PSCRIPTS_WORKDIR
+#define TURBORAMA_MOUNT_MOUNTINFO               "/proc/self/mountinfo"
+#define TURBORAMA_MOUNT_PORTS_SCRIPTS_FS        "overlay"
+#define TURBORAMA_MOUNT_PORTS_SCRIPTS_OPTIONS   "lowerdir="PATH_DIR_BIN_PORTS",upperdir="PATH_DIR_TURBORAMA_PORTS",workdir="PATH_DIR_PSCRIPTS_WORKDIR

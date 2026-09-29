@@ -1,5 +1,5 @@
 /*
- eemount (Multi-source ROMs mounting utility for EmuELEC) is licensed under [**GPL3**](https://gnu.org/licenses/gpl.html)
+ turborama_mount (Multi-source ROMs mounting utility for Turborama) is licensed under [**GPL3**](https://gnu.org/licenses/gpl.html)
 
  Copyright (C) 2022 Guoxin "7Ji" Pu (pugokushin@gmail.com)
 
@@ -20,12 +20,12 @@
 #define PATH_NAME_PORTS     "ports"
 #define PATH_NAME_PSCRIPTS  PATH_NAME_PORTS"_scripts"
 #define PATH_NAME_UPDATE    ".update"
-#define PATH_NAME_EMUELEC   "emuelec"
-#define PATH_NAME_MARK      PATH_NAME_EMUELEC"roms"
+#define PATH_NAME_TURBORAMA   "turborama"
+#define PATH_NAME_MARK      PATH_NAME_TURBORAMA"roms"
 
 #define PATH_NAME_VAR       "var"
 #define PATH_NAME_MEDIA     "media"
-#define PATH_NAME_EEROMS    "EEROMS"
+#define PATH_NAME_TURBOROMS    "TURBOROMS"
 
 #define PATH_NAME_USR       "usr"
 #define PATH_NAME_BIN       "bin"
@@ -39,18 +39,18 @@
 #define PATH_DIR_PSCRIPTS   PATH_DIR_ROMS"/"PATH_NAME_PSCRIPTS
 
 #define PATH_DIR_EXTERNAL   "/"PATH_NAME_VAR"/"PATH_NAME_MEDIA
-#define PATH_DIR_EXTERNAL_EEROMS    PATH_DIR_EXTERNAL"/"PATH_NAME_EEROMS
+#define PATH_DIR_EXTERNAL_TURBOROMS    PATH_DIR_EXTERNAL"/"PATH_NAME_TURBOROMS
 
 #define PATH_DIR_UPDATE     PATH_DIR_STORAGE"/"PATH_NAME_UPDATE
 #define PATH_DIR_UPDATE_INT PATH_DIR_ROMS"/"PATH_NAME_UPDATE
-#define PATH_DIR_UPDATE_EXT PATH_DIR_EXTERNAL_EEROMS"/"PATH_NAME_UPDATE
+#define PATH_DIR_UPDATE_EXT PATH_DIR_EXTERNAL_TURBOROMS"/"PATH_NAME_UPDATE
 
 #define PATH_DIR_USR        "/"PATH_NAME_USR
 #define PATH_DIR_BIN        PATH_DIR_USR"/"PATH_NAME_BIN
 #define PATH_DIR_BIN_PORTS  PATH_DIR_BIN"/"PATH_NAME_PORTS
 
-#define PATH_DIR_EMUELEC    "/"PATH_NAME_EMUELEC
-#define PATH_DIR_EMUELEC_PORTS  PATH_DIR_EMUELEC"/"PATH_NAME_PORTS
+#define PATH_DIR_TURBORAMA    "/"PATH_NAME_TURBORAMA
+#define PATH_DIR_TURBORAMA_PORTS  PATH_DIR_TURBORAMA"/"PATH_NAME_PORTS
 
 
 static const size_t len_path_name_roms = strlen(PATH_NAME_ROMS);

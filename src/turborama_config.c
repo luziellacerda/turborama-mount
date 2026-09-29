@@ -1,5 +1,5 @@
 /*
- eemount (Multi-source ROMs mounting utility for EmuELEC) is licensed under [**GPL3**](https://gnu.org/licenses/gpl.html)
+ turborama_mount (Multi-source ROMs mounting utility for Turborama) is licensed under [**GPL3**](https://gnu.org/licenses/gpl.html)
 
  Copyright (C) 2022 Guoxin "7Ji" Pu (pugokushin@gmail.com)
 
@@ -10,10 +10,10 @@
  You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 */
-#include "eeconfig_p.h"
+#include "turborama_config_p.h"
 
-static inline long eeconfig_read_config(char **buffer) {
-    FILE *fp = fopen(EECONFIG_FILE, "r");
+static inline long turborama_config_read_config(char **buffer) {
+    FILE *fp = fopen(TURBORAMA_CONFIG_FILE, "r");
     if (fp == NULL) {
         logging(LOGGING_ERROR, "Failed to open config file");
         return -1;
@@ -54,18 +54,18 @@ static inline long eeconfig_read_config(char **buffer) {
     return len_file;
 }
 
-static inline int eeconfig_report_setting(const enum eeconfig_get_type type, const char *value, const void *result) {
+static inline int turborama_config_report_setting(const enum turborama_config_get_type type, const char *value, const void *result) {
     char *c;
     long buffer;
     switch (type) {
-        case EECONFIG_GET_STRING:
+        case TURBORAMA_CONFIG_GET_STRING:
             *((char **)result) = value[0] ? strdup(value) : NULL;
             logging(LOGGING_DEBUG, "Got setting string: [%s]", *((char **)result));
             break;
-        case EECONFIG_GET_LONG:
-        case EECONFIG_GET_INT:
+        case TURBORAMA_CONFIG_GET_LONG:
+        case TURBORAMA_CONFIG_GET_INT:
             buffer = strtol(value, &c, 10);
-            if (type == EECONFIG_GET_LONG) {
+            if (type == TURBORAMA_CONFIG_GET_LONG) {
                 *((long *)result) = buffer;
                 logging(LOGGING_DEBUG, "Got setting long: [%ld]", buffer);
             } else {
@@ -73,7 +73,7 @@ static inline int eeconfig_report_setting(const enum eeconfig_get_type type, con
                 logging(LOGGING_DEBUG, "Got setting int: [%d]", *((int *)result));
             }
             break;
-        case EECONFIG_GET_BOOL:
+        case TURBORAMA_CONFIG_GET_BOOL:
             *((bool *)result) = value[0] ? util_bool_from_string(value) : false;
             logging(LOGGING_DEBUG, "Got setting boolean: [%s]", *((bool *)result) ? "true" : "false");
             break;
@@ -81,7 +81,7 @@ static inline int eeconfig_report_setting(const enum eeconfig_get_type type, con
     return 0;
 }
 
-static inline int eeconfig_get_setting_sanity_check(char *buffer, const long buffersz, const char *setting, const char *platform, const char *rom, const void *result) {
+static inline int turborama_config_get_setting_sanity_check(char *buffer, const long buffersz, const char *setting, const char *platform, const char *rom, const void *result) {
     // Sanity check
     if (!buffer || buffersz <= 0) {
         logging(LOGGING_ERROR, "Illegal buffer to get config from");
@@ -116,12 +116,12 @@ static inline int eeconfig_get_setting_sanity_check(char *buffer, const long buf
     return 0;
 }
 
-static inline int eeconfig_get_setting_from_buffer(char *buffer, const long buffersz, const char *setting, const char *platform, const char *rom, const enum eeconfig_get_type type, const void *result) {
-    if (eeconfig_get_setting_sanity_check(buffer, buffersz, setting, platform, rom, result)) {
+static inline int turborama_config_get_setting_from_buffer(char *buffer, const long buffersz, const char *setting, const char *platform, const char *rom, const enum turborama_config_get_type type, const void *result) {
+    if (turborama_config_get_setting_sanity_check(buffer, buffersz, setting, platform, rom, result)) {
         return 1;
     }
     const size_t len_setting = strlen(setting);
-    const size_t len_global_key = len_setting + len_eeconfig_global_prefix + 1;
+    const size_t len_global_key = len_setting + len_turborama_config_global_prefix + 1;
     const size_t offset_global_value = len_global_key + 1;
     const size_t offset_raw_value = len_setting + 1;
     size_t len_platform, len_platform_key, offset_platform_value;
@@ -202,10 +202,10 @@ static inline int eeconfig_get_setting_from_buffer(char *buffer, const long buff
                             }
                             if (!result_platform) {
                                 if (len_line > len_global_key && line[len_global_key] == '=') {
-                                    switch (line[len_eeconfig_global_prefix]) {
+                                    switch (line[len_turborama_config_global_prefix]) {
                                         case '-':
                                         case '.':
-                                            if (!(strncmp(line, eeconfig_global_prefix, len_eeconfig_global_prefix) || strncmp(line+offset_eeconfig_global_setting, setting, len_setting))) {
+                                            if (!(strncmp(line, turborama_config_global_prefix, len_turborama_config_global_prefix) || strncmp(line+offset_turborama_config_global_setting, setting, len_setting))) {
                                                 result_global = line + offset_global_value;
                                             }
                                             break;
@@ -244,23 +244,23 @@ static inline int eeconfig_get_setting_from_buffer(char *buffer, const long buff
         }
     }
     if (result_rom) {
-        eeconfig_report_setting(type, result_rom, result);
+        turborama_config_report_setting(type, result_rom, result);
         return 0;
     }
     if (result_platform) {
-        eeconfig_report_setting(type, result_platform, result);
+        turborama_config_report_setting(type, result_platform, result);
         return 0;
     }
     if (result_global) {
-        eeconfig_report_setting(type, result_global, result);
+        turborama_config_report_setting(type, result_global, result);
         return 0;
     }
     logging(LOGGING_ERROR, "Setting not found");
     return 1;
 }
 
-static inline int eeconfig_get_setting_from_buffer_and_report(char *buffer, const long buffersz, const char *setting, const char *platform, const char *rom, const enum eeconfig_get_type type, const void *result) {
-    int rtr = eeconfig_get_setting_from_buffer(buffer, buffersz, setting, platform, rom, type, result);
+static inline int turborama_config_get_setting_from_buffer_and_report(char *buffer, const long buffersz, const char *setting, const char *platform, const char *rom, const enum turborama_config_get_type type, const void *result) {
+    int rtr = turborama_config_get_setting_from_buffer(buffer, buffersz, setting, platform, rom, type, result);
     if (rtr) {
         logging(LOGGING_ERROR, "Failed to get setting %s for platform %s rom %s", setting, platform, rom);
     } else {
@@ -269,32 +269,32 @@ static inline int eeconfig_get_setting_from_buffer_and_report(char *buffer, cons
     return rtr;
 }
 
-int eeconfig_get_setting_one(const char *setting, const char *platform, const char *rom, const enum eeconfig_get_type type, const void *result) {
+int turborama_config_get_setting_one(const char *setting, const char *platform, const char *rom, const enum turborama_config_get_type type, const void *result) {
     char *buffer;
-    long buffersz = eeconfig_read_config(&buffer);
+    long buffersz = turborama_config_read_config(&buffer);
     if (buffersz < 0) {
         return 1;
     }
-    int rtr = eeconfig_get_setting_from_buffer_and_report(buffer, buffersz, setting, platform, rom, type, result);
+    int rtr = turborama_config_get_setting_from_buffer_and_report(buffer, buffersz, setting, platform, rom, type, result);
     free(buffer);
     return rtr;
 }
 
-int eeconfig_get_setting_many(struct eeconfig_get_helper *getter, unsigned int get_count) {
+int turborama_config_get_setting_many(struct turborama_config_get_helper *getter, unsigned int get_count) {
     if (!get_count) {
         logging(LOGGING_ERROR, "No config to get");
         return -1;
     }
     char *buffer;
-    long buffersz = eeconfig_read_config(&buffer);
+    long buffersz = turborama_config_read_config(&buffer);
     if (buffersz < 0) {
         return -2;
     }
     int rtr = 0;
-    struct eeconfig_get_helper *current;
+    struct turborama_config_get_helper *current;
     for (unsigned int i=0; i<get_count; ++i) {
         current = getter + i;
-        rtr += eeconfig_get_setting_from_buffer_and_report(buffer, buffersz, current->setting, current->platform, current->rom, current->type, current->result);
+        rtr += turborama_config_get_setting_from_buffer_and_report(buffer, buffersz, current->setting, current->platform, current->rom, current->type, current->result);
     }
     free(buffer);
     return rtr;

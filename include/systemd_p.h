@@ -1,5 +1,5 @@
 /*
- eemount (Multi-source ROMs mounting utility for EmuELEC) is licensed under [**GPL3**](https://gnu.org/licenses/gpl.html)
+ turborama_mount (Multi-source ROMs mounting utility for Turborama) is licensed under [**GPL3**](https://gnu.org/licenses/gpl.html)
 
  Copyright (C) 2022 Guoxin "7Ji" Pu (pugokushin@gmail.com)
 
@@ -19,7 +19,7 @@
 #include "alloc.h"
 #include "sort.h"
 #include "util.h"
-#include "eemount.h"
+#include "turborama_mount.h"
 #include "paths.h"
 
 #define SYSTEMD_NAME_ORG            "org"

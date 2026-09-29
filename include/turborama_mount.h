@@ -1,5 +1,5 @@
 /*
- eemount (Multi-source ROMs mounting utility for EmuELEC) is licensed under [**GPL3**](https://gnu.org/licenses/gpl.html)
+ turborama_mount (Multi-source ROMs mounting utility for Turborama) is licensed under [**GPL3**](https://gnu.org/licenses/gpl.html)
 
  Copyright (C) 2022 Guoxin "7Ji" Pu (pugokushin@gmail.com)
 
@@ -21,7 +21,7 @@
  * @brief An entry in the partition  table
  * 
  */
-struct eemount_entry {
+struct turborama_mount_entry {
     /**
      * @brief The mount ID of the entry
      * 
@@ -88,12 +88,12 @@ struct eemount_entry {
  * @brief The partition table reflecting the content of /proc/self/mountinfo
  * 
  */
-struct eemount_table {
+struct turborama_mount_table {
     /**
      * @brief Entries
      * 
      */
-    struct eemount_entry *entries;
+    struct turborama_mount_entry *entries;
     /**
      * @brief Count of entries in the table
      * 
@@ -110,7 +110,7 @@ struct eemount_table {
  * @brief The helper for finished system mounts
  * 
  */
-struct eemount_finished_helper {
+struct turborama_mount_finished_helper {
     /**
      * @brief The count of mounted systems
      * 
@@ -131,9 +131,9 @@ struct eemount_finished_helper {
 /**
  * @brief Get a partition table
  * 
- * @return struct eemount_table* A table, or NULL if failed
+ * @return struct turborama_mount_table* A table, or NULL if failed
  */
-struct eemount_table* eemount_get_table();
+struct turborama_mount_table* turborama_mount_get_table();
 
 
 /**
@@ -142,7 +142,7 @@ struct eemount_table* eemount_get_table();
  * @param entry The entry
  * @return int 0 success, 1 failed
  */
-int eemount_umount_entry(struct eemount_entry *entry);
+int turborama_mount_umount_entry(struct turborama_mount_entry *entry);
 
 /**
  * @brief Unmount a mount table entry recursively
@@ -152,16 +152,16 @@ int eemount_umount_entry(struct eemount_entry *entry);
  * @param entry_id The id of the entry
  * @return unsigned int 0 success, positive failed count
  */
-unsigned int eemount_umount_entry_recursive(struct eemount_entry *entry, struct eemount_table *table, unsigned int entry_id);
+unsigned int turborama_mount_umount_entry_recursive(struct turborama_mount_entry *entry, struct turborama_mount_table *table, unsigned int entry_id);
 
 /**
  * @brief Find a mount entry in the mount table by the mount point
  * 
  * @param mount_point The mount point
  * @param table The table
- * @return struct eemount_entry* The found entry, or NULL if failed
+ * @return struct turborama_mount_entry* The found entry, or NULL if failed
  */
-struct eemount_entry *eemount_find_entry_by_mount_point(const char *mount_point, struct eemount_table *table);
+struct turborama_mount_entry *turborama_mount_find_entry_by_mount_point(const char *mount_point, struct turborama_mount_table *table);
 
 /**
  * @brief Find a mount entry in the mount table whose mount point starts with certain pattern
@@ -169,9 +169,9 @@ struct eemount_entry *eemount_find_entry_by_mount_point(const char *mount_point,
  * @param mount_point The mount point starting portion
  * @param table The table
  * @param len The length of the pattern. Or 0 to calculate it. 
- * @return struct eemount_entry* 
+ * @return struct turborama_mount_entry* 
  */
-struct eemount_entry *eemount_find_entry_by_mount_point_start_with(const char *mount_point, struct eemount_table *table, size_t len);
+struct turborama_mount_entry *turborama_mount_find_entry_by_mount_point_start_with(const char *mount_point, struct turborama_mount_table *table, size_t len);
 
 /**
  * @brief Check if a path is a mount point
@@ -181,14 +181,14 @@ struct eemount_entry *eemount_find_entry_by_mount_point_start_with(const char *m
  * @return true The path is a mount point
  * @return false The path is not a mount point
  */
-bool eemount_is_mount_point(const char* path, struct eemount_table *table);
+bool turborama_mount_is_mount_point(const char* path, struct turborama_mount_table *table);
 
 /**
  * @brief Free a mount table
  * 
  * @param table The pointer to the table to free
  */
-void eemount_free_table(struct eemount_table **table);
+void turborama_mount_free_table(struct turborama_mount_table **table);
 /**
  * @brief Get a list of all systems and how they should be mounted
  * 
@@ -202,5 +202,5 @@ void eemount_free_table(struct eemount_table **table);
  * 
  * @return int 0 if success, 1 if failed
  */
-int eemount_routine();
+int turborama_mount_routine();
 #endif

@@ -1,4 +1,4 @@
-BINARY = eemount
+BINARY = turborama-mount
 DIR_INCLUDE = include
 DIR_SOURCE = src
 DIR_OBJECT = obj
